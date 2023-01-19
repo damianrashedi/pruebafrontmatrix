@@ -10,10 +10,10 @@ class PodcastGrid extends Component {
 	}
 	render() {
     return (
-		<div>
+		<div className="row" >
 			{this.props.podcasts.map((podcast, i) => {
            // Return the element. Also pass key
-           return (<PodcastCard podcast={podcast}/>)
+           return (<PodcastCard podcast={podcast} key={podcast.id.attributes['im:id']}/>)
         })}
 		</div>
     );
