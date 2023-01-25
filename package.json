@@ -7,12 +7,22 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
+    "buffer": "^6.0.3",
+    "process": "^0.11.10",
     "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.2",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-streams": "^13.6.6",
+    "rxjs": "^7.8.0",
+    "stream": "^0.0.2",
+    "stream-browserify": "^3.0.0",
+    "timers": "^0.1.1",
+    "timers-browserify": "^2.0.12",
+    "web-vitals": "^2.1.4",
+    "xml2js": "^0.4.23"
   },
   "scripts": {
     "start": "react-scripts start",

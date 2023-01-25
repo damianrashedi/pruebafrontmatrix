@@ -12,9 +12,9 @@ class PodcastGrid extends Component {
     return (
 		<div className="row" >
 			{this.props.podcasts.map((podcast, i) => {
-           // Return the element. Also pass key
-           return (<PodcastCard podcast={podcast} key={podcast.id.attributes['im:id']}/>)
-        })}
+	           // Return the element. Also pass key
+	           return (<PodcastCard podcast={podcast} key={podcast.id.attributes['im:id']}/>)
+	        })}
 		</div>
     );
   }

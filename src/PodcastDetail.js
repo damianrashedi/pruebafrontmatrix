@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { useParams } from 'react-router-dom';
+import fetchPodcastStream from './PodcastStream';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -13,7 +14,10 @@ class PodcastDetail extends Component {
     this.state = {
       podcast_detail: null,
       fetch_expiration: 86400,
+      podcast_episodes: [],
     };
+
+    this.setPodcastEpisodes = this.setPodcastEpisodes.bind(this);
   }
 
   componentDidMount(){
@@ -26,7 +30,6 @@ class PodcastDetail extends Component {
     });
 
     let existing_podcasts = JSON.parse(localStorage.getItem("podcast_detail_list"));
-    console.log(existing_podcasts);
 
     if(existing_podcasts && existing_podcasts[this.props.params.podcastId] !== undefined){
 
@@ -37,7 +40,6 @@ class PodcastDetail extends Component {
         this.setState({
           podcast_detail: existing_podcasts[this.props.params.podcastId].podcast_detail
         });
-
       }
 
     }else{
@@ -72,6 +74,7 @@ class PodcastDetail extends Component {
         }
 
         localStorage.setItem("podcast_detail_list", JSON.stringify(existing_podcasts));
+        
 
         this.setState({
           is_loading: false
@@ -79,8 +82,21 @@ class PodcastDetail extends Component {
       });
   }
 
+  setPodcastEpisodes(data){
+    this.setState({
+      podcast_episodes: data
+    });
+
+  }
+
+
   render() {
-    console.log(this.state.podcast_detail);
+
+    if(this.state.podcast_detail != null){
+      //stream = podcastStream(this.state.podcast_detail.feedUrl);
+      fetchPodcastStream(this.state.podcast_detail.feedUrl, this.setPodcastEpisodes);
+    }
+
     return (
       <div>
         {this.state.podcast_detail && 
@@ -93,6 +109,30 @@ class PodcastDetail extends Component {
                   <p className="text-muted">Author: {this.state.podcast_detail.artistName}</p>
                 </div>
               </div>
+            </div>
+            <div className="col-9">
+              <h1>Episodios {this.state.podcast_episodes.length}</h1>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {this.state.podcast_episodes.map((episode, i) => {
+                   // Return the element. Also pass key
+                   return (
+                     <tr key={i}>
+                       <td>{episode.title}</td>
+                       <td>{episode.date}</td>
+                       <td>{episode.duration}</td>
+                     </tr>
+                     )
+                })}
+                </tbody>
+              </table>
             </div>
           </div>
         }
